@@ -1,11 +1,6 @@
-language: minimal
+language: node_js
 os: linux
 dist: bionic
-
-addons:
-  apt:
-    packages:
-      - npm
 
 env:
   global:
@@ -15,7 +10,7 @@ notifications:
   email: false
 
 before_install:
-  - npm -g install semver
+  - npm install semver
 
 jobs:
   include:
