@@ -1,0 +1,5 @@
+process:
+  ruby:
+    running: true
+  fluentd:
+    running: true

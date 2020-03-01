@@ -1,0 +1,21 @@
+language: minimal
+os: linux
+dist: bionic
+
+env:
+  global:
+    - IMAGE_NAME=jsloan117/fluentd
+
+notifications:
+  email: false
+
+before_install:
+  - npm -g install semver
+
+jobs:
+  include:
+    - stage: build docker images
+      services: docker
+      script: .travis/build-test-push.sh
+      cache:
+        npm: true
