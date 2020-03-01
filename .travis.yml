@@ -2,6 +2,11 @@ language: minimal
 os: linux
 dist: bionic
 
+addons:
+  apt:
+    packages:
+      - npm
+
 env:
   global:
     - IMAGE_NAME=jsloan117/fluentd
