@@ -78,7 +78,9 @@ push_images () {
 semver
 build_images
 install_prereqs
-vulnerability_scanner
+if [[ "${VULNERABILITY_TEST}" = true ]]; then
+  vulnerability_scanner
+fi
 test_images
 if [[ "${TRAVIS_PULL_REQUEST}" = false ]] && [[ "${TRAVIS_BRANCH}" =~ ^(dev|master)$ ]]; then
   push_images
