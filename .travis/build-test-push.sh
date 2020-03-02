@@ -11,7 +11,7 @@ fi
 export IMAGE_TAG
 
 semver () {
-  npm install semver
+  echo -e '\n<<< Getting & setting versioning info >>>\n'
   SEMVER_BUMP="${SEMVER_BUMP}"
   if CURRENT_VERSION=$(docker run --rm "${IMAGE_NAME}":"${IMAGE_TAG}" cat VERSION 2> /dev/null); then
     echo "${CURRENT_VERSION}" > VERSION

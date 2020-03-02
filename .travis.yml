@@ -1,4 +1,5 @@
 language: node_js
+node_js: 12
 os: linux
 dist: bionic
 
@@ -13,5 +14,6 @@ jobs:
   include:
     - stage: build docker images
       services: docker
+      before_script: npm install semver
       script: .travis/build-test-push.sh
       cache: npm
