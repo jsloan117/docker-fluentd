@@ -9,13 +9,11 @@ env:
 notifications:
   email: false
 
-before_install:
-  - npm install semver
-
 jobs:
   include:
     - stage: build docker images
       services: docker
+      before_script: npm install semver
       script: .travis/build-test-push.sh
       cache:
         npm: true
