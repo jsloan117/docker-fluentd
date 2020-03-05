@@ -21,8 +21,8 @@ semver () {
   if [[ -n "${SEMVER_OVERRIDE}" ]]; then
     echo "${SEMVER_OVERRIDE}" > VERSION
   fi
-  NEXT_VERSION=$(docker run --rm -it -v "$PWD":/app -w /app treeder/bump --filename VERSION "${SEMVER_BUMP}")
-  echo "Version: ${NEXT_VERSION}"
+  echo "Version: $(docker run --rm -it -v "$PWD":/app -w /app treeder/bump --filename VERSION "${SEMVER_BUMP}")"
+  NEXT_VERSION=$(cat VERSION)
   export NEXT_VERSION
 }
 
