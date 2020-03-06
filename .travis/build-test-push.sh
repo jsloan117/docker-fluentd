@@ -2,7 +2,6 @@
 # build, test and push docker images
 
 set -euo pipefail
-set -xv
 
 if [ "${TRAVIS_BRANCH}" = master ]; then
   IMAGE_TAG=latest
@@ -11,7 +10,7 @@ else
 fi
 export IMAGE_TAG
 
-semver () {
+get_version () {
   echo -e '\n<<< Getting & setting versioning info >>>\n'
   SEMVER_BUMP="${SEMVER_BUMP}"
   if CURRENT_VERSION=$(docker run --rm "${IMAGE_NAME}":"${IMAGE_TAG}" cat VERSION 2> /dev/null); then
@@ -21,7 +20,7 @@ semver () {
   if [[ -n "${SEMVER_OVERRIDE}" ]]; then
     echo "${SEMVER_OVERRIDE}" > VERSION
   fi
-  echo "Version: $(docker run --rm -it -v "$PWD":/app -w /app treeder/bump --filename VERSION "${SEMVER_BUMP}")"
+  echo "Version: $(docker run --rm -it -v "${PWD}":/app -w /app treeder/bump --filename VERSION "${SEMVER_BUMP}")"
   NEXT_VERSION=$(cat VERSION)
   export NEXT_VERSION
 }
@@ -75,7 +74,7 @@ push_images () {
   docker push "${IMAGE_NAME}":"${NEXT_VERSION}"
 }
 
-semver
+get_version
 build_images
 install_prereqs
 if [[ "${VULNERABILITY_TEST}" = true ]]; then
